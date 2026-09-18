@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Expense & Budget Visualizer</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+
+    <!--NAVBAR-->
+    <header class="navbar">
+
+        <!-- LOGO -->
+        <div class="logo">
+            EXPENSE
+            <span>&</span>
+            BUDGET
+        </div>
+
+
+        <!-- MENU -->
+        <nav class="main-nav">
+
+            <button
+                class="nav-btn active"
+                id="expenseBtn"
+            >
+                Pengeluaran
+            </button>
+
+
+            <button
+                class="nav-btn"
+                id="incomeBtn"
+            >
+                Pemasukan
+            </button>
+
+        </nav>
+
+    </header>
+
+
+
+    <!--MAIN CONTENT-->
+    <main class="container">
+
+
+        <!--HERO / SALDO-->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p
+                    class="small-title"
+                    id="heroTitle"
+                >
+                    TOTAL PENGELUARAN
+                </p>
+
+
+                <h1 id="heroAmount">
+                    Rp 0
+                </h1>
+
+
+                <p
+                    class="description"
+                    id="heroDescription"
+                >
+                    Pantau penggunaan uangmu berdasarkan
+                    kategori pengeluaran.
+                </p>
+
+            </div>
+
+
+            <!-- ICON -->
+            <div class="hero-icon">
+                Rp
+            </div>
+
+        </section>
+
+
+
+        <!--CONTENT GRID-->
+        <section class="content-grid">
+
+
+            <!--DIAGRAM-->
+            <div class="card chart-card">
+
+
+                <div class="card-title">
+
+                    <h2 id="chartTitle">
+                        Penggunaan Biaya
+                    </h2>
+
+                </div>
+
+
+
+                <!--DIAGRAM PENGELUARAN-->
+                <div
+                    class="chart-wrapper"
+                    id="expenseChartWrapper"
+                >
+
+                    <div
+                        class="pie-chart"
+                        id="pieChart"
+                    >
+
+                        <div class="pie-center">
+
+                            <strong id="chartTotal">
+                                Rp 0
+                            </strong>
+
+                            <span>
+                                digunakan
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!--DIAGRAM PEMASUKAN-->
+                <div
+                    class="line-chart"
+                    id="lineChart"
+                >
+
+                    <svg
+                        id="lineSvg"
+                        viewBox="0 0 400 220"
+                        preserveAspectRatio="none"
+                    >
+
+                        <!-- GARIS DIAGRAM -->
+                        <polyline
+                            id="incomeLine"
+                            points=""
+                        ></polyline>
+
+
+                        <!-- TITIK DIAGRAM -->
+                        <g id="incomePoints"></g>
+
+                    </svg>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!--KATEGORI / LEGEND-->
+            <div class="card legend-card">
+
+
+                <div class="card-title">
+
+                    <h2 id="legendTitle">
+                        Kategori
+                    </h2>
+
+                </div>
+
+
+
+                <!--KATEGORI PENGELUARAN-->
+                <div
+                    class="legend-list"
+                    id="expenseLegend"
+                >
+
+
+                    <!-- MAKANAN -->
+                    <div class="legend-item">
+
+                        <span
+                            class="color-dot food"
+                        ></span>
+
+
+                        <div>
+
+                            <h3>
+                                Makanan & Minuman
+                            </h3>
+
+                            <p id="foodPercentage">
+                                0%
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- HIBURAN -->
+                    <div class="legend-item">
+
+                        <span
+                            class="color-dot entertainment"
+                        ></span>
+
+
+                        <div>
+
+                            <h3>
+                                Hiburan
+                            </h3>
+
+                            <p id="entertainmentPercentage">
+                                0%
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- BARANG -->
+                    <div class="legend-item">
+
+                        <span
+                            class="color-dot goods"
+                        ></span>
+
+
+                        <div>
+
+                            <h3>
+                                Barang
+                            </h3>
+
+                            <p id="goodsPercentage">
+                                0%
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!--KATEGORI PEMASUKAN-->
+                <div
+                    class="legend-list"
+                    id="incomeLegend"
+                    style="display: none;"
+                >
+
+                    <!-- GAJI -->
+                    <div class="legend-item">
+
+                        <span
+                            class="color-dot salary"
+                        ></span>
+
+
+                        <div>
+
+                            <h3>
+                                Gaji
+                            </h3>
+
+                            <p id="salaryPercentage">
+                                0%
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- TIP -->
+                    <div class="legend-item">
+
+                        <span
+                            class="color-dot tip"
+                        ></span>
+
+
+                        <div>
+
+                            <h3>
+                                Slip / Tip
+                            </h3>
+
+                            <p id="tipPercentage">
+                                0%
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- UANG JAJAN -->
+                    <div class="legend-item">
+
+                        <span
+                            class="color-dot allowance"
+                        ></span>
+
+
+                        <div>
+
+                            <h3>
+                                Uang Jajan
+                            </h3>
+
+                            <p id="allowancePercentage">
+                                0%
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!--INPUT TRANSAKSI-->
+            <div class="card input-card">
+
+
+                <div class="card-title">
+
+                    <h2 id="inputTitle">
+                        Tambah Pengeluaran
+                    </h2>
+
+                </div>
+
+
+
+                <!--KATEGORI PENGELUARAN-->
+                <div
+                    id="expenseInput"
+                >
+
+                    <label for="expenseCategory">
+                        Jenis Barang
+                    </label>
+
+
+                    <select
+                        id="expenseCategory"
+                    >
+
+                        <option value="food">
+                            Makanan & Minuman
+                        </option>
+
+                        <option value="entertainment">
+                            Hiburan
+                        </option>
+
+                        <option value="goods">
+                            Barang
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!--KATEGORI PEMASUKAN-->
+                <div
+                    id="incomeInput"
+                    style="display: none;"
+                >
+
+                    <label for="incomeCategory">
+                        Jenis Pemasukan
+                    </label>
+
+
+                    <select
+                        id="incomeCategory"
+                    >
+
+                        <option value="salary">
+                            Gaji
+                        </option>
+
+                        <option value="tip">
+                            Slip / Tip
+                        </option>
+
+                        <option value="allowance">
+                            Uang Jajan
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!--JUMLAH-->
+                <label for="amount">
+                    Jumlah
+                </label>
+
+
+                <input
+                    type="number"
+                    id="amount"
+                    placeholder="Contoh: 50000"
+                    min="0"
+                >
+
+
+
+                <!--TOMBOL-->
+                <button
+                    class="add-btn"
+                    id="addTransaction"
+                >
+                    + Tambah Pengeluaran
+                </button>
+
+
+            </div>
+
+            <!--Gambar-->
+            <div class="card image-card">
+
+                <img
+                    src="asset/huohuo.jpg"
+                    alt="huohuo"
+                >
+
+            </div>
+
+
+            <!--INFORMASI SALDO-->
+            <div class="card balance-info">
+
+
+                <div class="card-title">
+
+                    <h2>
+                        Informasi Saldo
+                    </h2>
+
+                </div>
+
+
+                <p>
+                    Saldo akan bertambah ketika kamu
+                    menambahkan pemasukan dan berkurang
+                    ketika melakukan pengeluaran.
+                </p>
+
+
+                <div class="mini-balance">
+
+                    <span>
+                        Saldo Saat Ini
+                    </span>
+
+
+                    <strong id="miniBalance">
+                        Rp 100.000
+                    </strong>
+
+                </div>
+
+            </div>
+            
+        </section>
+
+
+
+        <!--RIWAYAT TRANSAKSI-->
+        <section class="history-section">
+
+
+            <div class="history-header">
+
+
+                <h2 id="historyTitle">
+                    Riwayat Pengeluaran
+                </h2>
+
+
+                <span id="transactionCount">
+                    0 transaksi
+                </span>
+
+
+            </div>
+
+
+
+            <!-- LIST RIWAYAT -->
+            <div
+                class="history-list"
+                id="historyList"
+            >
+
+                <p class="empty">
+                    Belum ada pengeluaran.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
