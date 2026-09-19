@@ -65,6 +65,11 @@ const incomeCategory =
         "incomeCategory"
     );
 
+const expenseInput =
+    document.getElementById("expenseInput");
+
+const incomeInput =
+    document.getElementById("incomeInput");
 
 const historyTitle =
     document.getElementById("historyTitle");
@@ -85,6 +90,8 @@ const miniBalance =
         "miniBalance"
     );
 
+const balanceImage =
+    document.getElementById("balanceImage");
 
 // FORMAT RUPIAH
 
@@ -148,6 +155,68 @@ function getBalance() {
 
 }
 
+function updateBalanceImage() {
+
+    const balance = getBalance();
+
+    let newImage;
+
+
+    if (balance >= 100000) {
+
+        newImage =
+            "asset/happy.jpg";
+
+    }
+
+    else if (balance >= 50000) {
+
+        newImage =
+            "asset/50.jpg";
+
+    }
+
+    else if (balance >= 10000) {
+
+        newImage =
+            "asset/huohuo.jpg";
+
+    }
+
+    else {
+
+        newImage =
+            "asset/10.jpg";
+
+    }
+
+
+    // Kalau fotonya memang sudah sama,
+    // tidak perlu dianimasikan lagi
+
+    if (balanceImage.getAttribute("src") === newImage) {
+        return;
+    }
+
+
+    balanceImage.style.opacity = "0";
+    balanceImage.style.transform = "scale(0.97)";
+
+
+    setTimeout(function () {
+
+        balanceImage.src = newImage;
+
+        balanceImage.onload = function () {
+
+            balanceImage.style.opacity = "1";
+            balanceImage.style.transform = "scale(1)";
+
+        };
+
+    }, 200);
+
+}
 
 // MODE PENGELUARAN
 
@@ -206,19 +275,11 @@ function showExpenseMode() {
         "+ Tambah Pengeluaran";
 
 
-    expenseCategory.style.display =
+    expenseInput.style.display =
         "block";
 
-    incomeCategory.style.display =
+    incomeInput.style.display =
         "none";
-
-
-    // Input label
-
-    document.querySelector(
-        "#expenseInput label"
-    ).textContent =
-        "Jenis Barang";
 
 
     // Riwayat
@@ -295,12 +356,11 @@ function showIncomeMode() {
         "+ Tambah Pemasukan";
 
 
-    expenseCategory.style.display =
+    expenseInput.style.display =
         "none";
 
-    incomeCategory.style.display =
+    incomeInput.style.display =
         "block";
-
 
     // Riwayat
 
@@ -573,6 +633,41 @@ function updateIncomeChart() {
             "incomePoints"
         );
 
+    let salary = 0;
+    let tip = 0;
+    let allowance = 0;
+
+    incomes.forEach(function (income) {
+        if (income.category === "salary") {
+            salary += income.amount;
+        } else if (income.category === "tip") {
+            tip += income.amount;
+        } else if (income.category === "allowance") {
+            allowance += income.amount;
+        }
+    });
+
+    const total = getTotalIncome();
+
+    let salaryPercent = 0;
+    let tipPercent = 0;
+    let allowancePercent = 0;
+
+    if (total > 0) {
+        salaryPercent = (salary / total) * 100;
+        tipPercent = (tip / total) * 100;
+        allowancePercent = (allowance / total) * 100;
+    }
+
+    document.getElementById("salaryPercentage").textContent =
+        Math.round(salaryPercent) + "%";
+
+    document.getElementById("tipPercentage").textContent =
+        Math.round(tipPercent) + "%";
+
+    document.getElementById("allowancePercentage").textContent =
+        Math.round(allowancePercent) + "%";
+
 
     // Bersihkan titik lama
 
@@ -666,37 +761,24 @@ function updateIncomeChart() {
 
             // Buat titik
 
-            const circle =
-                document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "circle"
-                );
-
-
-            circle.setAttribute(
-                "cx",
-                x
+            const circle = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "circle"
             );
 
-            circle.setAttribute(
-                "cy",
-                y
-            );
+            circle.setAttribute("cx", x);
+            circle.setAttribute("cy", y);
+            circle.setAttribute("r", 5);
 
-            circle.setAttribute(
-                "r",
-                5
-            );
+            if (income.category === "salary") {
+                circle.classList.add("income-point", "salary-point");
+            } else if (income.category === "tip") {
+                circle.classList.add("income-point", "tip-point");
+            } else if (income.category === "allowance") {
+                circle.classList.add("income-point", "allowance-point");
+            }
 
-            circle.classList.add(
-                "income-point"
-            );
-
-
-            pointsGroup.appendChild(
-                circle
-            );
-
+            pointsGroup.appendChild(circle);
         }
     );
 
@@ -950,8 +1032,10 @@ function updateBalance() {
     miniBalance.textContent =
         formatRupiah(balance);
 
-}
 
+    updateBalanceImage();
+
+}
 
 // START
 
