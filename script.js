@@ -398,9 +398,9 @@ addTransaction.addEventListener(
     "click",
     function () {
 
-        const amount =
-            Number(amountInput.value);
-
+        const amount = Number(
+            amountInput.value.replace(/[.,]/g, "")
+        );
 
         // Validasi
 
