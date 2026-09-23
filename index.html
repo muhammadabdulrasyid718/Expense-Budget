@@ -4,20 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Expense & Budget Visualizer</title>
-
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
-
-
-    <!--NAVBAR-->
+    <!-- NAVBAR -->
     <header class="navbar">
-
         <!-- LOGO -->
         <div class="logo">
             EXPENSE
@@ -25,17 +18,14 @@
             BUDGET
         </div>
 
-
         <!-- MENU -->
         <nav class="main-nav">
-
             <button
                 class="nav-btn active"
                 id="expenseBtn"
             >
                 Pengeluaran
             </button>
-
 
             <button
                 class="nav-btn"
@@ -44,21 +34,219 @@
                 Pemasukan
             </button>
 
+            <!-- TOMBOL PENGATURAN -->
+            <button
+                class="setting-btn"
+                id="settingBtn"
+                aria-label="Pengaturan"
+            >
+                ⚙
+            </button>
         </nav>
-
     </header>
 
+    <!-- SIDEBAR PENGATURAN -->
+    <aside
+        class="settings-sidebar"
+        id="settingsSidebar"
+    >
+        <!-- HEADER SIDEBAR -->
+        <div class="settings-header">
+            <h2>
+                Pengaturan
+            </h2>
 
+            <button
+                id="closeSettings"
+                aria-label="Tutup pengaturan"
+            >
+                ×
+            </button>
+        </div>
 
-    <!--MAIN CONTENT-->
+        <!-- TEMA -->
+        <section class="settings-section">
+            <h3>
+                Tampilan
+            </h3>
+
+            <div class="setting-item">
+                <div>
+                    <strong>
+                        Mode Gelap
+                    </strong>
+
+                    <p>
+                        Ubah tampilan menjadi gelap.
+                    </p>
+                </div>
+
+                <!-- SWITCH -->
+                <label class="theme-switch">
+                    <input
+                        type="checkbox"
+                        id="darkModeToggle"
+                    >
+
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </section>
+
+        <!-- GAMBAR SALDO -->
+        <section class="settings-section">
+            <h3>
+                Gambar Saldo
+            </h3>
+
+            <p class="settings-description">
+                Atur gambar berdasarkan batas saldo.
+            </p>
+
+            <!-- TEMPAT SEMUA PENGATURAN GAMBAR -->
+            <div id="balanceImageSettings">
+
+                <!-- BATAS GAMBAR 1 -->
+                <div class="image-setting-item">
+                    <div class="image-setting-preview">
+                        <img
+                            src="asset/10.jpg"
+                            alt="Gambar saldo"
+                        >
+                    </div>
+
+                    <div class="image-setting-info">
+                        <label>
+                            Mulai dari
+                        </label>
+
+                        <input
+                            type="text"
+                            class="balance-limit"
+                            value="0"
+                        >
+
+                        <button
+                            class="change-image-btn"
+                            type="button"
+                        >
+                            Ganti Foto
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BATAS GAMBAR 2 -->
+                <div class="image-setting-item">
+                    <div class="image-setting-preview">
+                        <img
+                            src="asset/huohuo.jpg"
+                            alt="Gambar saldo"
+                        >
+                    </div>
+
+                    <div class="image-setting-info">
+                        <label>
+                            Mulai dari
+                        </label>
+
+                        <input
+                            type="text"
+                            class="balance-limit"
+                            value="10000"
+                        >
+
+                        <button
+                            class="change-image-btn"
+                            type="button"
+                        >
+                            Ganti Foto
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BATAS GAMBAR 3 -->
+                <div class="image-setting-item">
+                    <div class="image-setting-preview">
+                        <img
+                            src="asset/50.jpg"
+                            alt="Gambar saldo"
+                        >
+                    </div>
+
+                    <div class="image-setting-info">
+                        <label>
+                            Mulai dari
+                        </label>
+
+                        <input
+                            type="text"
+                            class="balance-limit"
+                            value="50000"
+                        >
+
+                        <button
+                            class="change-image-btn"
+                            type="button"
+                        >
+                            Ganti Foto
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BATAS GAMBAR 4 -->
+                <div class="image-setting-item">
+                    <div class="image-setting-preview">
+                        <img
+                            src="asset/happy.jpg"
+                            alt="Gambar saldo"
+                        >
+                    </div>
+
+                    <div class="image-setting-info">
+                        <label>
+                            Mulai dari
+                        </label>
+
+                        <input
+                            type="text"
+                            class="balance-limit"
+                            value="100000"
+                        >
+
+                        <button
+                            class="change-image-btn"
+                            type="button"
+                        >
+                            Ganti Foto
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAMBAH BATAS -->
+            <button
+                class="add-limit-btn"
+                id="addLimitBtn"
+                type="button"
+            >
+                + Tambah Batas
+            </button>
+        </section>
+    </aside>
+
+    <!-- INPUT FILE UNTUK GANTI FOTO -->
+    <input
+        type="file"
+        id="imageFileInput"
+        accept="image/*"
+        hidden
+    >
+
+    <!-- MAIN CONTENT -->
     <main class="container">
-
-
-        <!--HERO / SALDO-->
+        <!-- HERO / SALDO -->
         <section class="hero">
-
             <div class="hero-content">
-
                 <p
                     class="small-title"
                     id="heroTitle"
@@ -66,11 +254,9 @@
                     TOTAL PENGELUARAN
                 </p>
 
-
                 <h1 id="heroAmount">
                     Rp 0
                 </h1>
-
 
                 <p
                     class="description"
@@ -79,50 +265,34 @@
                     Pantau penggunaan uangmu berdasarkan
                     kategori pengeluaran.
                 </p>
-
             </div>
 
-
-            <!-- ICON -->
             <div class="hero-icon">
                 Rp
             </div>
-
         </section>
 
-
-
-        <!--CONTENT GRID-->
+        <!-- CONTENT GRID -->
         <section class="content-grid">
 
-
-            <!--DIAGRAM-->
+            <!-- DIAGRAM -->
             <div class="card chart-card">
-
-
                 <div class="card-title">
-
                     <h2 id="chartTitle">
                         Penggunaan Biaya
                     </h2>
-
                 </div>
 
-
-
-                <!--DIAGRAM PENGELUARAN-->
+                <!-- DIAGRAM PENGELUARAN -->
                 <div
                     class="chart-wrapper"
                     id="expenseChartWrapper"
                 >
-
                     <div
                         class="pie-chart"
                         id="pieChart"
                     >
-
                         <div class="pie-center">
-
                             <strong id="chartTotal">
                                 Rp 0
                             </strong>
@@ -130,77 +300,47 @@
                             <span>
                                 digunakan
                             </span>
-
                         </div>
-
                     </div>
-
                 </div>
 
-
-
-                <!--DIAGRAM PEMASUKAN-->
+                <!-- DIAGRAM PEMASUKAN -->
                 <div
                     class="line-chart"
                     id="lineChart"
                 >
-
                     <svg
                         id="lineSvg"
                         viewBox="0 0 400 220"
                         preserveAspectRatio="none"
                     >
-
-                        <!-- GARIS DIAGRAM -->
                         <polyline
                             id="incomeLine"
                             points=""
                         ></polyline>
 
-
-                        <!-- TITIK DIAGRAM -->
                         <g id="incomePoints"></g>
-
                     </svg>
-
                 </div>
-
-
             </div>
 
-
-
-            <!--KATEGORI / LEGEND-->
+            <!-- KATEGORI / LEGEND -->
             <div class="card legend-card">
-
-
                 <div class="card-title">
-
                     <h2 id="legendTitle">
                         Kategori
                     </h2>
-
                 </div>
 
-
-
-                <!--KATEGORI PENGELUARAN-->
+                <!-- KATEGORI PENGELUARAN -->
                 <div
                     class="legend-list"
                     id="expenseLegend"
                 >
-
-
-                    <!-- MAKANAN -->
                     <div class="legend-item">
-
-                        <span
-                            class="color-dot food"
-                        ></span>
-
+                        <span class="color-dot food"></span>
 
                         <div>
-
                             <h3>
                                 Makanan & Minuman
                             </h3>
@@ -208,23 +348,13 @@
                             <p id="foodPercentage">
                                 0%
                             </p>
-
                         </div>
-
                     </div>
 
-
-
-                    <!-- HIBURAN -->
                     <div class="legend-item">
-
-                        <span
-                            class="color-dot entertainment"
-                        ></span>
-
+                        <span class="color-dot entertainment"></span>
 
                         <div>
-
                             <h3>
                                 Hiburan
                             </h3>
@@ -232,23 +362,13 @@
                             <p id="entertainmentPercentage">
                                 0%
                             </p>
-
                         </div>
-
                     </div>
 
-
-
-                    <!-- BARANG -->
                     <div class="legend-item">
-
-                        <span
-                            class="color-dot goods"
-                        ></span>
-
+                        <span class="color-dot goods"></span>
 
                         <div>
-
                             <h3>
                                 Barang
                             </h3>
@@ -256,32 +376,20 @@
                             <p id="goodsPercentage">
                                 0%
                             </p>
-
                         </div>
-
                     </div>
-
                 </div>
 
-
-
-                <!--KATEGORI PEMASUKAN-->
+                <!-- KATEGORI PEMASUKAN -->
                 <div
                     class="legend-list"
                     id="incomeLegend"
                     style="display: none;"
                 >
-
-                    <!-- GAJI -->
                     <div class="legend-item">
-
-                        <span
-                            class="color-dot salary"
-                        ></span>
-
+                        <span class="color-dot salary"></span>
 
                         <div>
-
                             <h3>
                                 Gaji
                             </h3>
@@ -289,21 +397,11 @@
                             <p id="salaryPercentage">
                                 0%
                             </p>
-
                         </div>
-
                     </div>
 
-
-
-                    <!-- TIP -->
                     <div class="legend-item">
-
-                        <span
-                            class="color-dot tip"
-                        ></span>
-
-
+                        <span class="color-dot tip"></span>
                         <div>
 
                             <h3>
@@ -313,23 +411,13 @@
                             <p id="tipPercentage">
                                 0%
                             </p>
-
                         </div>
-
                     </div>
 
-
-
-                    <!-- UANG JAJAN -->
                     <div class="legend-item">
-
-                        <span
-                            class="color-dot allowance"
-                        ></span>
-
+                        <span class="color-dot allowance"></span>
 
                         <div>
-
                             <h3>
                                 Uang Jajan
                             </h3>
@@ -337,46 +425,26 @@
                             <p id="allowancePercentage">
                                 0%
                             </p>
-
                         </div>
-
                     </div>
-
                 </div>
-
-
             </div>
 
-
-
-            <!--INPUT TRANSAKSI-->
+            <!-- INPUT TRANSAKSI -->
             <div class="card input-card">
-
-
                 <div class="card-title">
-
                     <h2 id="inputTitle">
                         Tambah Pengeluaran
                     </h2>
-
                 </div>
 
-
-
-                <!--KATEGORI PENGELUARAN-->
-                <div
-                    id="expenseInput"
-                >
-
+                <!-- KATEGORI PENGELUARAN -->
+                <div id="expenseInput">
                     <label for="expenseCategory">
                         Jenis Barang
                     </label>
 
-
-                    <select
-                        id="expenseCategory"
-                    >
-
+                    <select id="expenseCategory">
                         <option value="food">
                             Makanan & Minuman
                         </option>
@@ -388,28 +456,20 @@
                         <option value="goods">
                             Barang
                         </option>
-
                     </select>
-
                 </div>
 
 
-
-                <!--KATEGORI PEMASUKAN-->
+                <!-- KATEGORI PEMASUKAN -->
                 <div
                     id="incomeInput"
                     style="display: none;"
                 >
-
                     <label for="incomeCategory">
                         Jenis Pemasukan
                     </label>
 
-
-                    <select
-                        id="incomeCategory"
-                    >
-
+                    <select id="incomeCategory">
                         <option value="salary">
                             Gaji
                         </option>
@@ -421,18 +481,13 @@
                         <option value="allowance">
                             Uang Jajan
                         </option>
-
                     </select>
-
                 </div>
 
-
-
-                <!--JUMLAH-->
+                <!-- JUMLAH -->
                 <label for="amount">
                     Jumlah
                 </label>
-
 
                 <input
                     type="text"
@@ -440,42 +495,31 @@
                     placeholder="Contoh: 1.000"
                 >
 
-
-
-                <!--TOMBOL-->
+                <!-- TOMBOL -->
                 <button
                     class="add-btn"
                     id="addTransaction"
                 >
                     + Tambah Pengeluaran
                 </button>
-
-
             </div>
 
-            <!--Gambar-->
+            <!-- GAMBAR SALDO -->
             <div class="card image-card">
-
                 <img
                     id="balanceImage"
                     src="asset/foto1.jpg"
                     alt="Kondisi saldo"
                 >
-
             </div>
 
-            <!--INFORMASI SALDO-->
+            <!-- INFORMASI SALDO -->
             <div class="card balance-info">
-
-
                 <div class="card-title">
-
                     <h2>
                         Informasi Saldo
                     </h2>
-
                 </div>
-
 
                 <p>
                     Saldo akan bertambah ketika kamu
@@ -483,48 +527,30 @@
                     ketika melakukan pengeluaran.
                 </p>
 
-
                 <div class="mini-balance">
-
                     <span>
                         Saldo Saat Ini
                     </span>
 
-
                     <strong id="miniBalance">
                         Rp 100.000
                     </strong>
-
                 </div>
-
             </div>
-            
         </section>
 
-
-
-        <!--RIWAYAT TRANSAKSI-->
+        <!-- RIWAYAT TRANSAKSI -->
         <section class="history-section">
-
-
             <div class="history-header">
-
-
                 <h2 id="historyTitle">
                     Riwayat Pengeluaran
                 </h2>
 
-
                 <span id="transactionCount">
                     0 transaksi
                 </span>
-
-
             </div>
 
-
-
-            <!-- LIST RIWAYAT -->
             <div
                 class="history-list"
                 id="historyList"
@@ -533,20 +559,11 @@
                 <p class="empty">
                     Belum ada pengeluaran.
                 </p>
-
             </div>
-
-
         </section>
-
-
     </main>
-
-
 
     <!-- JAVASCRIPT -->
     <script src="script.js"></script>
-
 </body>
-
 </html>
